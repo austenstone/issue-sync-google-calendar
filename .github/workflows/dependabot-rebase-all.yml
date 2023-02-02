@@ -1,0 +1,26 @@
+name: Dependabot Action All
+
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: 'Dependabot Action'
+        default: 'rebase'
+        type: choice
+        options:
+        - rebase
+        - recreate
+        - merge
+        - squash and merge
+        - cancel merge
+        - reopen
+        - close
+        - ignore this major version
+        - ignore this minor version
+        - ignore this dependency
+
+jobs:
+  action:
+    uses: austenstone/.github/.github/workflows/dependabot-rebase-all.yml@main
+    with:
+      action: ${{ inputs.action }}

@@ -1,6 +1,7 @@
 import * as core from '@actions/core';
 import * as github from '@actions/github';
 import type { GraphQlQueryResponseData } from "@octokit/graphql";
+import { getCalendarEvents } from './google';
 
 interface Input {
   token: string;
@@ -15,6 +16,8 @@ export function getInputs(): Input {
 const run = async (): Promise<void> => {
   try {
     const input = getInputs();
+    const events = await getCalendarEvents();
+    console.log('events', events);
     const octokit: ReturnType<typeof github.getOctokit> = github.getOctokit(input.token);
 
     const {
